@@ -27,14 +27,15 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, arg := range args {
 			splitInput := strings.Split(arg, "d")
-			numDices, _ := strconv.Atoi(splitInput[0])
+			numDices, numDicesErr := strconv.Atoi(splitInput[0])
 			sides, sidesErr := strconv.Atoi(splitInput[1])
-			if numDices == 0 {
+			if numDices == 0 && splitInput[0] == "" {
 				// Handles input in shortened form, For exmaple "d6" instead of "1d6"
 				numDices = 1
 			}
-			if sidesErr != nil {
-				fmt.Errorf("%v is invalid input. Input must be in format XdY. For example 1d6, or d6", arg)
+			if sidesErr != nil || (numDicesErr != nil && splitInput[0] != "") {
+				fmt.Printf("\"%v\" is invalid input. Input must be in format XdY. For example 1d6, or d6", arg)
+				return
 			}
 			var dice dice.Dice = dice.Dice{}
 			dice.SetSides(uint(sides))
@@ -42,7 +43,7 @@ to quickly create a Cobra application.`,
 			output += ": "
 			for i := 0; i < numDices; i++ {
 				roll := dice.Roll()
-				output += string(roll)
+				output += strconv.Itoa(int(roll))
 				if i != numDices-1 {
 					output += ", "
 				}
