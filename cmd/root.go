@@ -28,12 +28,13 @@ to quickly create a Cobra application.`,
 		for _, arg := range args {
 			splitInput := strings.Split(arg, "d")
 			numDices, numDicesErr := strconv.Atoi(splitInput[0])
+			isNumDicesEmpty := splitInput[0] == ""
 			sides, sidesErr := strconv.Atoi(splitInput[1])
-			if numDices == 0 && splitInput[0] == "" {
+			if numDices == 0 && isNumDicesEmpty {
 				// Handles input in shortened form, For exmaple "d6" instead of "1d6"
 				numDices = 1
 			}
-			if sidesErr != nil || (numDicesErr != nil && splitInput[0] != "") {
+			if sidesErr != nil || (numDicesErr != nil && !isNumDicesEmpty) {
 				fmt.Printf("\"%v\" is invalid input. Input must be in format XdY. For example 1d6, or d6", arg)
 				return
 			}
