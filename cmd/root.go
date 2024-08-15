@@ -32,24 +32,24 @@ to quickly create a Cobra application.`,
 			if numDices == 0 {
 				// Handles input in shortened form, For exmaple "d6" instead of "1d6"
 				numDices = 1
-				if sidesErr != nil {
-					fmt.Errorf("%v is invalid input. Input must be in format XdY. For example 1d6, or d6", arg)
-				}
-				var dice dice.Dice = dice.Dice()
-				dice.SetSides(uint(sides))
-				output := arg
-				output += ": "
-				for i := 0; i < numDices; i++ {
-					roll := dice.Roll()
-					output += roll
-					if i != numDices-1 {
-						output += ", "
-					}
-				}
-				fmt.Println(output)
 			}
-
+			if sidesErr != nil {
+				fmt.Errorf("%v is invalid input. Input must be in format XdY. For example 1d6, or d6", arg)
+			}
+			var dice dice.Dice = dice.Dice{}
+			dice.SetSides(uint(sides))
+			output := arg
+			output += ": "
+			for i := 0; i < numDices; i++ {
+				roll := dice.Roll()
+				output += string(roll)
+				if i != numDices-1 {
+					output += ", "
+				}
+			}
+			fmt.Println(output)
 		}
+
 	},
 }
 
