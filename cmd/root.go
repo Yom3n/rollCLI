@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 Yomen <KamilBudnik94@gmail.com>
 */
 package cmd
 
@@ -39,19 +39,26 @@ For exampel "roll 2d6" rolls 2 6-sided dices `,
 			}
 			var dice dice.Dice = dice.Dice{}
 			dice.SetSides(uint(sides))
-			output := arg
-			output += ": "
-			for i := 0; i < numDices; i++ {
-				roll := dice.Roll()
-				output += strconv.Itoa(int(roll))
-				if i != numDices-1 {
-					output += ", "
-				}
-			}
+			output := generateFormattedOutput(dice, numDices, arg)
 			fmt.Println(output)
 		}
-
 	},
+}
+
+// / Generates roll output in format:
+// / [Input]: [rollResult1], [rollResult2] ... [rollResultN]
+// / example: 2d6: 2, 6
+func generateFormattedOutput(dice dice.Dice, numDices int, input string) string {
+	output := input
+	output += ": "
+	for i := 0; i < numDices; i++ {
+		roll := dice.Roll()
+		output += strconv.Itoa(int(roll))
+		if i != numDices-1 {
+			output += ", "
+		}
+	}
+	return output
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
