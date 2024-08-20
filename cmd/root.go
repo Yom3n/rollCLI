@@ -17,13 +17,12 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "roll",
-	Short: "Roll the dice using xdy",
+	Short: "Roll the dice using xdy, where x is number of dices, and y is number of sides",
 	Long: `A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Roll is a CLI tool that let you quickly generate any dice rolls.
+User "roll XdY" to roll x y-sided dices.
+For exampel "roll 2d6" rolls 2 6-sided dices `,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, arg := range args {
 			splitInput := strings.Split(arg, "d")
