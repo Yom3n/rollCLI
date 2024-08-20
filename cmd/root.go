@@ -18,11 +18,10 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "roll",
 	Short: "Roll the dice using xdy, where x is number of dices, and y is number of sides",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-Roll is a CLI tool that let you quickly generate any dice rolls.
+	Long: `Roll is a CLI tool that let you quickly generate any dice rolls.
 User "roll XdY" to roll x y-sided dices.
-For exampel "roll 2d6" rolls 2 6-sided dices `,
+For exampel "roll 2d6" rolls 2 6-sided dices
+Roll accepts multiple arguments for example you can "roll d20 2d6`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, arg := range args {
 			splitInput := strings.Split(arg, "d")
