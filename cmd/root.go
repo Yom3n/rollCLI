@@ -14,15 +14,22 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var helpStr = `	Roll is a CLI tool that let you quickly generate any dice rolls.
+	User "roll XdY" to roll x y-sided dices.
+	For exampel "roll 2d6" rolls 2 6-sided dices
+	Roll accepts multiple arguments for example you can use "roll d20 2d6" to roll one d20 and two d6`
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "roll",
 	Short: "Roll the dice using xdy, where x is number of dices, and y is number of sides",
-	Long: `Roll is a CLI tool that let you quickly generate any dice rolls.
-User "roll XdY" to roll x y-sided dices.
-For exampel "roll 2d6" rolls 2 6-sided dices
-Roll accepts multiple arguments for example you can "roll d20 2d6`,
+	Long:  helpStr,
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) == 0 {
+			fmt.Println(helpStr)
+			return
+		}
+
 		for _, arg := range args {
 			splitInput := strings.Split(arg, "d")
 			numDices, numDicesErr := strconv.Atoi(splitInput[0])
