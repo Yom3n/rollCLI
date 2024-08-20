@@ -19,6 +19,6 @@ func (d *Dice) SetSides(sides uint) error {
 
 func (d *Dice) Roll() (uint){
 	min := 1
-	max := int(d.sides)
+	max := int(d.sides + 1)
 	return uint(rand.IntN(max - min) + min)
 }
